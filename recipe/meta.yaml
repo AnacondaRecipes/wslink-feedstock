@@ -1,42 +1,53 @@
+{% set name = "wslink" %}
 {% set version = "2.6.0" %}
 
 package:
-  name: wslink
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://files.pythonhosted.org/packages/source/w/wslink/wslink-{{ version }}.tar.gz
-  sha256: 11e6f4a956a90487e31354fe0436edc850e052d9773ea1d14fc708660cb385da
+  url: https://github.com/Kitware/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 7e4f39d10a13f4e02a0e58da3dcf2963c19d507558d950d3db4a5911e32c5827
 
 build:
-  noarch: python
+  skip: true # [py<310]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
 requirements:
   host:
-    - python {{ python_min }}.*
+    - python
     - hatchling
     - pip
   run:
-    - python >={{ python_min }}
+    - python
     - aiohttp <4
     - msgpack-python >=1,<2
 
 test:
+  source_files:
+    - tests
   imports:
     - wslink
   commands:
     - pip check
+    - pytest -vv
   requires:
     - pip
-    - python {{ python_min }}.*
+    - python
+    - pytest
+    - pytest-asyncio
 
 about:
   home: https://github.com/kitware/wslink
   summary: Python/JavaScript library for communicating over WebSocket
+  description: |
+    wslink provides a Python/JavaScript library for communicating over WebSocket.
   license: BSD-3-Clause
+  license_family: BSD
   license_file: LICENSE
+  doc_url: https://kitware.github.io/wslink
+  dev_url: https://github.com/kitware/wslink
 
 extra:
   recipe-maintainers:
