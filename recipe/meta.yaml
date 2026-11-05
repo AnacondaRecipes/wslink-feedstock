@@ -1,5 +1,5 @@
 {% set name = "wslink" %}
-{% set version = "2.6.0" %}
+{% set version = "2.5.7" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/Kitware/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 7e4f39d10a13f4e02a0e58da3dcf2963c19d507558d950d3db4a5911e32c5827
+  sha256: 113010f16471d981d52d2c7381e42e6b85fbcde1c37717fc3a4e80d7dd500da1
 
 build:
   skip: true # [py<310]
